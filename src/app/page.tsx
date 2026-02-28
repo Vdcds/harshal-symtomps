@@ -32,13 +32,13 @@ interface AnalysisData {
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const SEVERITY_COLOR: Record<string, string> = { mild: "#10b981", moderate: "#f59e0b", severe: "#f43f5e" };
-const SEVERITY_BG: Record<string, string> = { mild: "bg-emerald-50 text-emerald-700 border-emerald-200", moderate: "bg-amber-50 text-amber-700 border-amber-200", severe: "bg-rose-50 text-rose-700 border-rose-200" };
+const SEVERITY_BG: Record<string, string> = { mild: "bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800", moderate: "bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800", severe: "bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-400 border-rose-200 dark:border-rose-800" };
 const URGENCY_META: Record<number, { label: string; color: string; bg: string; border: string; dot: string; ring: string }> = {
-  1: { label: "Self-care at home",    color: "text-emerald-700", bg: "bg-emerald-50 dark:bg-emerald-950/30", border: "border-emerald-200 dark:border-emerald-800", dot: "bg-emerald-500", ring: "ring-emerald-200" },
-  2: { label: "See GP this week",     color: "text-teal-700",    bg: "bg-teal-50 dark:bg-teal-950/30",    border: "border-teal-200 dark:border-teal-800",    dot: "bg-teal-500",    ring: "ring-teal-200"    },
-  3: { label: "See doctor < 24 h",   color: "text-amber-700",   bg: "bg-amber-50 dark:bg-amber-950/30",  border: "border-amber-200 dark:border-amber-800",  dot: "bg-amber-500",   ring: "ring-amber-200"   },
-  4: { label: "Urgent care today",   color: "text-orange-700",  bg: "bg-orange-50 dark:bg-orange-950/30",border: "border-orange-200 dark:border-orange-800", dot: "bg-orange-500",  ring: "ring-orange-200"  },
-  5: { label: "EMERGENCY — call 911",color: "text-rose-700",    bg: "bg-rose-50 dark:bg-rose-950/30",    border: "border-rose-300 dark:border-rose-800",    dot: "bg-rose-500",    ring: "ring-rose-300"    },
+  1: { label: "Self-care at home",    color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-50 dark:bg-emerald-950/30", border: "border-emerald-200 dark:border-emerald-800", dot: "bg-emerald-500", ring: "ring-emerald-200" },
+  2: { label: "See GP this week",     color: "text-teal-600 dark:text-teal-400",    bg: "bg-teal-50 dark:bg-teal-950/30",    border: "border-teal-200 dark:border-teal-800",    dot: "bg-teal-500",    ring: "ring-teal-200"    },
+  3: { label: "See doctor < 24 h",   color: "text-amber-600 dark:text-amber-400",   bg: "bg-amber-50 dark:bg-amber-950/30",  border: "border-amber-200 dark:border-amber-800",  dot: "bg-amber-500",   ring: "ring-amber-200"   },
+  4: { label: "Urgent care today",   color: "text-orange-600 dark:text-orange-400",  bg: "bg-orange-50 dark:bg-orange-950/30",border: "border-orange-200 dark:border-orange-800", dot: "bg-orange-500",  ring: "ring-orange-200"  },
+  5: { label: "EMERGENCY — call 911",color: "text-rose-600 dark:text-rose-400",    bg: "bg-rose-50 dark:bg-rose-950/30",    border: "border-rose-300 dark:border-rose-800",    dot: "bg-rose-500",    ring: "ring-rose-300"    },
 };
 const EXAMPLE_SYMPTOMS = [
   "fever","headache","cough","fatigue","nausea","chest pain",
@@ -690,7 +690,7 @@ export default function ChatPage() {
                         <div className="flex items-start justify-between mb-3">
                           <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Urgency Triage</p>
                           {analysisData?.seekCare && (
-                            <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-rose-100 border border-rose-300 text-rose-700 text-[10px] font-bold shrink-0">
+                            <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-rose-100 dark:bg-rose-950/40 border border-rose-300 dark:border-rose-800 text-rose-700 dark:text-rose-400 text-[10px] font-bold shrink-0">
                               <ShieldAlert className="w-3 h-3" /> Seek care
                             </span>
                           )}
@@ -844,7 +844,7 @@ export default function ChatPage() {
                   {analysisData?.redFlags && analysisData.redFlags.length > 0 && (
                     <Card className="border-rose-200 dark:border-rose-900 bg-rose-50/50 dark:bg-rose-950/20">
                       <CardHeader className="pb-1 pt-4 px-4">
-                        <CardTitle className="text-[10px] font-bold text-rose-700 uppercase tracking-widest flex items-center gap-1.5">
+                        <CardTitle className="text-[10px] font-bold text-rose-600 dark:text-rose-400 uppercase tracking-widest flex items-center gap-1.5">
                           <AlertTriangle className="w-3 h-3" /> Red Flags
                         </CardTitle>
                       </CardHeader>
@@ -852,7 +852,7 @@ export default function ChatPage() {
                         {analysisData.redFlags.map((f, i) => (
                           <div key={i} className="flex items-start gap-2.5 p-2.5 bg-rose-100/70 dark:bg-rose-900/25 rounded-xl border border-rose-200 dark:border-rose-800">
                             <span className="text-rose-500 shrink-0 mt-0.5 text-sm">⚠</span>
-                            <p className="text-[11px] text-rose-700 leading-snug font-medium">{f}</p>
+                            <p className="text-[11px] text-rose-700 dark:text-rose-300 leading-snug font-medium">{f}</p>
                           </div>
                         ))}
                       </CardContent>

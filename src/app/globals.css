@@ -1,9 +1,15 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark {
+  &:is(.dark *) {
+    @slot;
+  }
+}
 
 :root {
+  color-scheme: light;
   --background: oklch(0.9848 0 0);
   --foreground: oklch(0.2496 0.0417 263.3984);
   --card: oklch(1.0000 0 0);
@@ -52,6 +58,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   --background: oklch(0.1358 0.0163 262.7113);
   --foreground: oklch(0.9838 0.0035 247.8583);
   --card: oklch(0.1573 0.0228 265.6559);
@@ -158,6 +165,10 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+  }
+  html {
+    background-color: var(--background);
+    color: var(--foreground);
   }
   body {
     @apply bg-background text-foreground;
