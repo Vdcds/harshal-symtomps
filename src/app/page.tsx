@@ -17,8 +17,6 @@ import {
   FlaskConical, ChevronDown,
 } from "lucide-react";
 import { SimpleThemeToggle } from "@/components/mode-toggle";
-
-// ─── Types ────────────────────────────────────────────────────────────────────
 interface Message { id: string; role: "user" | "assistant"; content: string; createdAt: string; }
 interface LocalMatch { name: string; score: number; severity: "mild" | "moderate" | "severe"; }
 interface Session { id: string; title: string; updatedAt: string; _count: { messages: number }; }
@@ -30,7 +28,6 @@ interface AnalysisData {
   conditions: { name: string; score: number; severity: string; reason: string }[];
 }
 
-// ─── Constants ────────────────────────────────────────────────────────────────
 const SEVERITY_COLOR: Record<string, string> = { mild: "#10b981", moderate: "#f59e0b", severe: "#f43f5e" };
 const SEVERITY_BG: Record<string, string> = { mild: "bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800", moderate: "bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800", severe: "bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-400 border-rose-200 dark:border-rose-800" };
 const URGENCY_META: Record<number, { label: string; color: string; bg: string; border: string; dot: string; ring: string }> = {
@@ -45,7 +42,6 @@ const EXAMPLE_SYMPTOMS = [
   "shortness of breath","sore throat","body aches","vomiting","dizziness","runny nose",
 ];
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
 function parseAnalysisData(response: string): { clean: string; data: AnalysisData | null } {
   const match = response.match(/---ANALYSIS_DATA---\s*([\s\S]*?)\s*---END_DATA---/);
   if (!match) return { clean: response, data: null };
@@ -62,7 +58,6 @@ function extractSymptoms(msg: string): string[] {
   return m[1].split(",").map(s => s.trim()).filter(Boolean);
 }
 
-// ─── Markdown renderer ────────────────────────────────────────────────────────
 function MarkdownMessage({ content }: { content: string }) {
   return (
     <ReactMarkdown remarkPlugins={[remarkGfm]} components={{
@@ -82,7 +77,6 @@ function MarkdownMessage({ content }: { content: string }) {
   );
 }
 
-// ─── Typing indicator ─────────────────────────────────────────────────────────
 function TypingDots() {
   return (
     <div className="flex gap-1.5 items-center py-1">
@@ -93,7 +87,6 @@ function TypingDots() {
   );
 }
 
-// ─── Loading Dashboard skeleton ───────────────────────────────────────────────
 function LoadingDashboard({ symptoms }: { symptoms: string[] }) {
   const steps = [
     "Parsing symptom patterns…",
@@ -157,7 +150,6 @@ function LoadingDashboard({ symptoms }: { symptoms: string[] }) {
   );
 }
 
-// ─── Chat Popup ───────────────────────────────────────────────────────────────
 interface ChatPopupProps {
   open: boolean;
   onClose: () => void;
@@ -266,7 +258,6 @@ function ChatPopup({ open, onClose, messages, loading, chatInput, setChatInput, 
   );
 }
 
-// ─── Main component ───────────────────────────────────────────────────────────
 export default function ChatPage() {
   const [sessions, setSessions] = useState<Session[]>([]);
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
@@ -766,7 +757,7 @@ export default function ChatPage() {
               <Card>
                 <CardHeader className="pb-1 pt-4 px-5">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-1.5">
+                    <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-foreground flex items-center gap-1.5">
                       <Zap className="w-3 h-3" /> Differential Diagnosis — Likelihood by Condition
                     </CardTitle>
                     <div className="flex gap-4">
